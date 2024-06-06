@@ -1,7 +1,5 @@
-import React from "react";
+import { Text } from "react-native";
 
-function PtpPage() {
-    return <h1>PTP</h1>
+export default function PtpPage() {
+    return <Text>PTP</Text>
 }
-
-export default PtpPage;

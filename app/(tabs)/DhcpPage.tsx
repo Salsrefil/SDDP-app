@@ -1,7 +1,5 @@
-import React from "react";
+import { Text } from "react-native";
 
-function DhcpPage() {
-  return <h1>DHCP</h1>;
+export default function DhcpPage() {
+  return <Text>DHCP</Text>;
 }
-
-export default DhcpPage;
