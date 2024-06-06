@@ -15,6 +15,15 @@ export default function TabLayout() {
         headerShown: false,
       }}>
       <Tabs.Screen
+        name = "PtpPage"
+        options = {{
+          title: 'PTP',
+          tabBarIcon: ({ color, focused}) => (
+            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          )
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
