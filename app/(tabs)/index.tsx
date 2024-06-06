@@ -1,10 +1,16 @@
-import { Image, StyleSheet, Platform, Text } from 'react-native';
+import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomePage() {
-  return <Text>Home</Text>
+export default function HomePage() { // keep file named index. App breaks down after renaming
+  return (
+    <View style={styles.view}>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  view: {
+      flex: 1,
+      backgroundColor: "#21233D",
+  }
+});
