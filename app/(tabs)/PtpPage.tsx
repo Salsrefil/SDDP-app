@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
 import TimeDisplay from '@/components/phpPageComponents/TimeDisplay';
 import UpdateTimeButton from '@/components/phpPageComponents/UpdateTimeButton';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
@@ -15,7 +15,7 @@ export default function PtpPage() {
     });
 
     return (
-        <View style={styles.view}>
+        <ScrollView contentContainerStyle={styles.view}>
             <InformationDisplay
                 name={"Role"}
                 value={ptpInformation.foreignMaster ? "Master" : "Slave"}
@@ -40,7 +40,7 @@ export default function PtpPage() {
                 value={ptpInformation.clockCount.toString()}
             />
             <UpdateTimeButton />
-        </View>
+        </ScrollView>
     );
 }
 
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#21233D',
-        paddingTop: '3%',
+        paddingVertical: '3%'
     }
 });
