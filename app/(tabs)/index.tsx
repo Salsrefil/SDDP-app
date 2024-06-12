@@ -4,11 +4,11 @@ import { Text, View, StyleSheet, Image} from 'react-native';
 export default function HomePage() { // keep file named index. App breaks down after renaming
   return (
     <View style={styles.view}>
-        <Image
-          source = {require('../../assets/images/AppLogo.png')}
-          style = {styles.image}
-        />
-        <Text style={styles.acronym}>SDDiP</Text>
+      <Image
+        source = {require('../../assets/images/AppLogo.png')}
+        style = {styles.image}
+      />
+      <Text style={styles.acronym}>SDDiP</Text>
     </View>
   );
 }
