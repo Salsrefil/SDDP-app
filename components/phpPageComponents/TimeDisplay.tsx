@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {StyleSheet, View, Text} from "react-native";
 
-function TimeDisplay() {
-    const [time, setTime] = useState({
-        fullTime: "00:00:00",
-        offset: "0",
-        date: "2024-06-12"
-    });
+interface TimeDisplayProps {
+    time: string;
+}
+
+const TimeDisplay: React.FunctionComponent<TimeDisplayProps> = ({time}) =>{
 
     return (
         <View style={stylesheet.timeDisplay}>
@@ -14,7 +13,7 @@ function TimeDisplay() {
                 Set Time
             </Text>
             <Text style={stylesheet.text}>
-                {time.fullTime}
+                {time}
             </Text>
         </View>
     );
@@ -42,7 +41,7 @@ const stylesheet = StyleSheet.create({
         color: 'white',
         width: '100%',
         height: 40,
-        fontSize: 32//2rem == 32px
+        fontSize: 22
     }
 });
 
