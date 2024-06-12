@@ -1,24 +1,31 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button } from 'react-native-elements';
 
 function UpdateTimeButton() {
     return (
         <Button
             title="Change Time"
-            buttonStyle={styles.UpdateTimeButton}
+            buttonStyle={styles.updateTimeButton}
+            titleStyle={styles.title}
         >
         </Button>
     );
 }
 
 const styles = StyleSheet.create({
-    UpdateTimeButton: {
+    updateTimeButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#2B2E46',
-        color: 'white',
         width: '80%',
         height: 80,
         borderRadius: 40,
-        fontSize: 32
+    },
+    title: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 32,
+        width: '100%'
     }
 })
 

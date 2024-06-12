@@ -15,7 +15,7 @@ export default function PtpPage() {
 const styles = StyleSheet.create({
     view: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         flex: 1,
         backgroundColor: '#21233D',
