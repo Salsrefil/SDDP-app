@@ -52,12 +52,12 @@ export default function PtpPage() {
 const styles = StyleSheet.create({
     view: {
         display: 'flex',
-        justifyContent: 'space-evenly',
         alignItems: 'center',
         flexGrow: 1,
         backgroundColor: '#21233D',
         paddingVertical: '3%',
-        paddingTop: 10,
-        paddingBottom: 10
-    }
+        paddingTop: 30,
+        paddingBottom: 30
+    },
+
 });
