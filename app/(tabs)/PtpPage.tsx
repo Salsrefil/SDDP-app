@@ -3,8 +3,10 @@ import {View, Text, StyleSheet, ScrollView} from "react-native";
 import TimeDisplay from '@/components/phpPageComponents/TimeDisplay';
 import UpdateTimeButton from '@/components/phpPageComponents/UpdateTimeButton';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
+import ServerStatusDisplay from '@/components/phpPageComponents/ServerStatusDisplay';
 
 export default function PtpPage() {
+    const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
     const [ptpInformation, setPtpInformation] = useState({ // currently hardcoded, this data should be loaded via http requests
         clockCount: 1,
         currentMaster: 'e0:d5:5e:83:cd:13',
@@ -16,6 +18,9 @@ export default function PtpPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.view}>
+            <ServerStatusDisplay
+                status = {serverStatus}
+            />
             <InformationDisplay
                 name={"Role"}
                 value={ptpInformation.foreignMaster ? "Master" : "Slave"}
@@ -51,6 +56,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexGrow: 1,
         backgroundColor: '#21233D',
-        paddingVertical: '3%'
+        paddingVertical: '3%',
+        paddingTop: 10,
+        paddingBottom: 10
     }
 });
