@@ -5,18 +5,26 @@ import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
 
-// Narazie endpointy testowane lokalnie przy pomocy pliku testowego serwera z potrzebnymi end-pointami: 
+// fetche działają
+// Narazie endpointy testowane lokalnie przy pomocy pliku testowego serwera z potrzebnymi end-pointami:
+// TODO: nie wiem czy to wszystko co przyciski mają robić, 
+// czy jak zeskanuje jako client i się okaże, że jest server to co wtedy? 
+// nic czy wyświetlić wiadomość, 
+// jeżeli wyświetlić to jakiś endpoint get ze strony servera by się przydał czy źle myśle?
+
 export default function DhcpPage() {
     const [dhcpInformation, setDhcpInformation] = useState({
-        dhcpServerActive: false,
+        dhcp_server_active: false,
         leases: [],
-        myIP: null,
+        my_ip: null,
         foreign_dhcp_server: null,
     });
 
     const fetchDhcpInfo = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:5000/dhcp_info', {
+            // hardcoded ip, zmieńcie na te które macie po odpaleniu skryptu z pliku testPythonServerDhcp,
+            // który stworzyłem do testowania takiego lokalnego
+            const response = await fetch('http://127.0.0.1:5000/dhcp_info', {  
                 method: 'GET',
             });
             if (!response.ok) {
@@ -73,13 +81,13 @@ export default function DhcpPage() {
         <ScrollView contentContainerStyle={styles.view}>
             <InformationDisplay
                 name={"Current Mode"}
-                value={dhcpInformation.dhcpServerActive ? "Server" : "Client"}
+                value={dhcpInformation.dhcp_server_active ? "Server" : "Client"}
             />
             <InformationDisplay
                 name={"Static IP"}
-                value={dhcpInformation.myIP ? dhcpInformation.myIP : "No address"}
+                value={dhcpInformation.my_ip ? dhcpInformation.my_ip : "No address"}
             />
-            {dhcpInformation.dhcpServerActive ? (
+            {dhcpInformation.dhcp_server_active ? (
                 dhcpInformation.leases.length > 0 ? (
                     <LeasesListDisplay leases={dhcpInformation.leases} />
                 ) : (
@@ -89,10 +97,10 @@ export default function DhcpPage() {
                 <Text></Text>
             )}
             <ServerClientSwitchButton
-                CurrentView={dhcpInformation.dhcpServerActive ? "Client" : "Server"}
+                CurrentView={dhcpInformation.dhcp_server_active ? "Client" : "Server"}
                 onPress={toggleDhcpServer}
             />
-            {!dhcpInformation.dhcpServerActive && (
+            {!dhcpInformation.dhcp_server_active && (
                 <ScanForDhcpButton onPress={handleScanForDhcp} />
             )}
         </ScrollView>
