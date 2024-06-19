@@ -4,6 +4,7 @@ import InformationDisplay from '@/components/phpPageComponents/InformationDispla
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
+import Config from '@/config';
 
 // fetche działają
 // Narazie endpointy testowane lokalnie przy pomocy pliku testowego serwera z potrzebnymi end-pointami:
@@ -13,9 +14,12 @@ import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton
 // jeżeli wyświetlić to jakiś endpoint get ze strony servera by się przydał czy źle myśle?
 
 export default function DhcpPage() {
+
+    var address = Config.serverAddress;
+
     const [dhcpInformation, setDhcpInformation] = useState({
         dhcp_server_active: false,
-        leases: [],
+        leases: null,
         my_ip: null,
         foreign_dhcp_server: null,
     });
@@ -24,7 +28,7 @@ export default function DhcpPage() {
         try {
             // hardcoded ip, zmieńcie na te które macie po odpaleniu skryptu z pliku testPythonServerDhcp,
             // który stworzyłem do testowania takiego lokalnego
-            const response = await fetch('http://127.0.0.1:5000/dhcp_info', {  
+            const response = await fetch(address + '/dhcp_info', {  
                 method: 'GET',
             });
             if (!response.ok) {
@@ -39,7 +43,7 @@ export default function DhcpPage() {
 
     const toggleDhcpServer = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:5000/dhcp_toggle', {
+            const response = await fetch(address + '/dhcp_toggle', {
                 method: 'POST',
             });
             if (!response.ok) {
@@ -53,13 +57,13 @@ export default function DhcpPage() {
 
     const handleScanForDhcp = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:5000/dhcp_scan', {
+            const response = await fetch(address + '/dhcp_scan', {
                 method: 'POST',
             });
             if (!response.ok) {
                 throw new Error('Failed to scan for DHCP');
             }
-            // Handle success if needed
+            fetchDhcpInfo();
         } catch (error) {
             console.error('Error scanning for DHCP:', error);
         }
@@ -83,12 +87,18 @@ export default function DhcpPage() {
                 name={"Current Mode"}
                 value={dhcpInformation.dhcp_server_active ? "Server" : "Client"}
             />
+            {!dhcpInformation.dhcp_server_active && (
             <InformationDisplay
-                name={"Static IP"}
+                name={"Foreign server IP"}
+                value={dhcpInformation.foreign_dhcp_server ? dhcpInformation.foreign_dhcp_server : "No foreign DHCP server detected"}
+            />
+            )}
+            <InformationDisplay
+                name={"Leased IP"}
                 value={dhcpInformation.my_ip ? dhcpInformation.my_ip : "No address"}
             />
             {dhcpInformation.dhcp_server_active ? (
-                dhcpInformation.leases.length > 0 ? (
+                dhcpInformation.leases ? (
                     <LeasesListDisplay leases={dhcpInformation.leases} />
                 ) : (
                     <InformationDisplay name={"List of leases"} value={"No available leases to show"} />
