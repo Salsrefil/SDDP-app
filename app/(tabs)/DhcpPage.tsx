@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
 import Config from '@/config';
-import showAlert from '@/utils/showAlert';
+import AlertBox from '@/components/AlertBox';
 
 export default function DhcpPage() {
 
@@ -20,11 +20,16 @@ export default function DhcpPage() {
 
     const [foreignDhcpDetected, setForeignDhcpDetected] = useState(false);
 
+    const [alert, setAlert] = useState({
+        visible: false,
+        title: "",
+        titleColor: "",
+        message: "",
+    });
+
     const fetchDhcpInfo = async () => {
         try {
-            const response = await fetch(address + '/dhcp_info', {  
-                method: 'GET',
-            });
+            const response = await fetch(address + '/dhcp_info', { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Failed to fetch DHCP information');
             }
@@ -35,7 +40,7 @@ export default function DhcpPage() {
             } else {
                 setForeignDhcpDetected(false);
             }
-            console.log(foreignDhcpDetected)
+            //console.log(foreignDhcpDetected);
             setDhcpInformation(data);
         } catch (error) {
             console.error('Error fetching DHCP information:', error);
@@ -44,10 +49,12 @@ export default function DhcpPage() {
 
     const toggleDhcpServer = async () => {
         if (foreignDhcpDetected) {
-            showAlert(
-                "Foreign DHCP Server Detected",
-                "A foreign DHCP server was detected. Cannot switch to server mode now."
-            );
+            setAlert({
+                visible: true,
+                title: "Foreign DHCP Server Detected",
+                titleColor: "red", // Foreign DHCP server detected
+                message: "A foreign DHCP server was detected. Cannot switch to server mode now.",
+            });
             return;
         }
         try {
@@ -72,21 +79,26 @@ export default function DhcpPage() {
                 throw new Error('Failed to scan for DHCP');
             }
             fetchDhcpInfo();
-            if(!dhcpInformation.foreign_dhcp_server){
-                showAlert(
-                    "Scan Alert",
-                    "A foreign DHCP server was not detected."
-                );
-            }else{
-                showAlert(
-                    "Scan Alert",
-                    "A foreign DHCP server was detected."
-                );
+            if (!dhcpInformation.foreign_dhcp_server) {
+                setAlert({
+                    visible: true,
+                    title: "Scan alert",
+                    titleColor: "green", // No foreign DHCP server detected
+                    message: "A foreign DHCP server was not detected.",
+                });
+            } else {
+                setAlert({
+                    visible: true,
+                    title: "Scan alert",
+                    titleColor: "red", // Foreign DHCP server detected
+                    message: "A foreign DHCP server was detected!",
+                });
             }
         } catch (error) {
             console.error('Error scanning for DHCP:', error);
         }
     };
+    
 
     useEffect(() => {
         fetchDhcpInfo();
@@ -108,6 +120,15 @@ export default function DhcpPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.view}>
+            {alert.visible && (
+                <AlertBox
+                    visible={alert.visible}
+                    title={alert.title}
+                    titleColor={alert.titleColor} 
+                    message={alert.message}
+                    onClose={() => setAlert({ ...alert, visible: false })}
+                />
+            )}
             <InformationDisplay
                 name={"Current Mode"}
                 value={dhcpInformation.dhcp_server_active ? "Server" : "Client"}
@@ -148,6 +169,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#21233D',
         paddingVertical: '3%',
         paddingTop: 30,
-        paddingBottom: 30
+        paddingBottom: 30,
     },
 });
