@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alertMessage: {
         textAlign: 'center',
         marginBottom: 20,
-        fontSize: 16,
+        fontSize: 20,
         height: 'auto',
         color: 'white',
     },
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     alertButtonText: {
         textAlign: 'center',
         color: 'white',
-        fontSize: 16,
+        fontSize: 20,
         height: 'auto',
     },
 });
