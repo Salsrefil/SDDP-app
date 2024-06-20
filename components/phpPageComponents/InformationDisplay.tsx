@@ -25,24 +25,29 @@ const stylesheet = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#2B2E46',
         width: '80%',
-        height: 80,
+        height: 'auto',
+        minHeight: 80,
         borderRadius: 40,
-        marginTop: 10
+        marginTop: 10,
     },
     name: {
         textAlign: 'center',
         color: 'white',
         fontWeight: 'bold',
         width: '100%',
-        height: 32,
-        fontSize: 24
+        height: 'auto',
+        minHeight: 32,
+        fontSize: 24,
+        marginHorizontal: 10,
     },
     value: {
         textAlign: 'center',
         color: 'white',
         width: '100%',
-        height: 40,
-        fontSize: 22
+        height: 'auto',
+        minHeight: 40,
+        fontSize: 22,
+        marginHorizontal: 10,
     }
 });
 

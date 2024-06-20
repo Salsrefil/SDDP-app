@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
 import Config from '@/config';
-
-// fetche działają
-// Narazie endpointy testowane lokalnie przy pomocy pliku testowego serwera z potrzebnymi end-pointami:
-// TODO: nie wiem czy to wszystko co przyciski mają robić, 
-// czy jak zeskanuje jako client i się okaże, że jest server to co wtedy? 
-// nic czy wyświetlić wiadomość, 
-// jeżeli wyświetlić to jakiś endpoint get ze strony servera by się przydał czy źle myśle?
 
 export default function DhcpPage() {
 
@@ -24,10 +17,10 @@ export default function DhcpPage() {
         foreign_dhcp_server: null,
     });
 
+    const [foreignDhcpDetected, setForeignDhcpDetected] = useState(false);
+
     const fetchDhcpInfo = async () => {
         try {
-            // hardcoded ip, zmieńcie na te które macie po odpaleniu skryptu z pliku testPythonServerDhcp,
-            // który stworzyłem do testowania takiego lokalnego
             const response = await fetch(address + '/dhcp_info', {  
                 method: 'GET',
             });
@@ -35,6 +28,13 @@ export default function DhcpPage() {
                 throw new Error('Failed to fetch DHCP information');
             }
             const data = await response.json();
+
+            if (!data.dhcp_server_active && data.foreign_dhcp_server) {
+                setForeignDhcpDetected(true);
+            } else {
+                setForeignDhcpDetected(false);
+            }
+            console.log(foreignDhcpDetected)
             setDhcpInformation(data);
         } catch (error) {
             console.error('Error fetching DHCP information:', error);
@@ -42,6 +42,14 @@ export default function DhcpPage() {
     };
 
     const toggleDhcpServer = async () => {
+        if (foreignDhcpDetected) {
+            Alert.alert(
+                "Foreign DHCP Server Detected",
+                "A foreign DHCP server was detected. Cannot switch to server mode now.",
+                [{ text: "OK" }]
+            );
+            return;
+        }
         try {
             const response = await fetch(address + '/dhcp_toggle', {
                 method: 'POST',
@@ -64,6 +72,19 @@ export default function DhcpPage() {
                 throw new Error('Failed to scan for DHCP');
             }
             fetchDhcpInfo();
+            if(!dhcpInformation.foreign_dhcp_server){
+                Alert.alert(
+                    "Alert",
+                    "A foreign DHCP server was not detected.",
+                    [{ text: "OK" }]
+                );
+            }else{
+                Alert.alert(
+                    "Alert",
+                    "A foreign DHCP server was detected.",
+                    [{ text: "OK" }]
+                );
+            }
         } catch (error) {
             console.error('Error scanning for DHCP:', error);
         }
@@ -71,12 +92,18 @@ export default function DhcpPage() {
 
     useEffect(() => {
         fetchDhcpInfo();
+
+        const intervalId = setInterval(() => {
+            fetchDhcpInfo();
+        }, 1000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     if (dhcpInformation === null) {
         return (
             <ScrollView contentContainerStyle={styles.view}>
-                <h2>Loading...</h2>
+                <Text>Loading...</Text>
             </ScrollView>
         );
     }
@@ -88,13 +115,13 @@ export default function DhcpPage() {
                 value={dhcpInformation.dhcp_server_active ? "Server" : "Client"}
             />
             {!dhcpInformation.dhcp_server_active && (
-            <InformationDisplay
-                name={"Foreign server IP"}
-                value={dhcpInformation.foreign_dhcp_server ? dhcpInformation.foreign_dhcp_server : "No foreign DHCP server detected"}
-            />
+                <InformationDisplay
+                    name={"Foreign server IP"}
+                    value={dhcpInformation.foreign_dhcp_server ? dhcpInformation.foreign_dhcp_server : "No foreign DHCP server detected"}
+                />
             )}
             <InformationDisplay
-                name={"Leased IP"}
+                name={dhcpInformation.dhcp_server_active ? "Static IP" : "Leased IP"}
                 value={dhcpInformation.my_ip ? dhcpInformation.my_ip : "No address"}
             />
             {dhcpInformation.dhcp_server_active ? (
@@ -110,9 +137,7 @@ export default function DhcpPage() {
                 CurrentView={dhcpInformation.dhcp_server_active ? "Client" : "Server"}
                 onPress={toggleDhcpServer}
             />
-            {!dhcpInformation.dhcp_server_active && (
-                <ScanForDhcpButton onPress={handleScanForDhcp} />
-            )}
+            <ScanForDhcpButton onPress={handleScanForDhcp} />
         </ScrollView>
     );
 }

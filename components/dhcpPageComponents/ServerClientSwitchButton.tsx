@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#2B2E46',
         width: '100%',
-        height: 80,
+        height: 'auto',
+        minHeight: 80,
         borderRadius: 40,
         marginTop: 10,
         borderColor: 'white',
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         fontSize: 26,
-        width: '100%'
+        width: '100%',
+        marginHorizontal: 10,
     }
 })
 
