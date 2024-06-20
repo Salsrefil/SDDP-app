@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
 import Config from '@/config';
+import showAlert from '@/utils/showAlert';
 
 export default function DhcpPage() {
 
@@ -43,10 +44,9 @@ export default function DhcpPage() {
 
     const toggleDhcpServer = async () => {
         if (foreignDhcpDetected) {
-            Alert.alert(
+            showAlert(
                 "Foreign DHCP Server Detected",
-                "A foreign DHCP server was detected. Cannot switch to server mode now.",
-                [{ text: "OK" }]
+                "A foreign DHCP server was detected. Cannot switch to server mode now."
             );
             return;
         }
@@ -73,16 +73,14 @@ export default function DhcpPage() {
             }
             fetchDhcpInfo();
             if(!dhcpInformation.foreign_dhcp_server){
-                Alert.alert(
-                    "Alert",
-                    "A foreign DHCP server was not detected.",
-                    [{ text: "OK" }]
+                showAlert(
+                    "Scan Alert",
+                    "A foreign DHCP server was not detected."
                 );
             }else{
-                Alert.alert(
-                    "Alert",
-                    "A foreign DHCP server was detected.",
-                    [{ text: "OK" }]
+                showAlert(
+                    "Scan Alert",
+                    "A foreign DHCP server was detected."
                 );
             }
         } catch (error) {
