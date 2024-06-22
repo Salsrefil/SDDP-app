@@ -1,19 +1,25 @@
+import React from "react";
 import { StyleSheet } from "react-native";
 import { Button } from 'react-native-elements';
 
-function UpdateTimeButton() {
+type ButtonActionProps = {
+    handlePress: () => void;
+    text: string;
+};
+
+const PtpButton: React.FunctionComponent<ButtonActionProps> = ({ handlePress, text }) => {
     return (
         <Button
-            title="Change Time"
-            buttonStyle={styles.updateTimeButton}
-            titleStyle={styles.title}
-        >
-        </Button>
+            title={ text }
+            buttonStyle={ styles.ptpButton }
+            titleStyle={ styles.title }
+            onPress={ handlePress }
+        />
     );
 }
 
 const styles = StyleSheet.create({
-    updateTimeButton: {
+    ptpButton: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#2B2E46',
@@ -28,6 +34,6 @@ const styles = StyleSheet.create({
         fontSize: 32,
         width: '100%'
     }
-})
+});
 
-export default UpdateTimeButton;
+export default PtpButton;

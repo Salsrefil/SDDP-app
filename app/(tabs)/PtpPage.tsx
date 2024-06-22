@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from "react-native";
 import TimeDisplay from '@/components/phpPageComponents/TimeDisplay';
-import UpdateTimeButton from '@/components/phpPageComponents/UpdateTimeButton';
+import UpdateTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
 import ServerStatusDisplay from '@/components/phpPageComponents/ServerStatusDisplay';
+import ChangeTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 
 export default function PtpPage() {
     const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
@@ -44,7 +45,7 @@ export default function PtpPage() {
                 name={"Clock Count"}
                 value={ptpInformation.clockCount.toString()}
             />
-            <UpdateTimeButton />
+            <ChangeTimeButton />
         </ScrollView>
     );
 }
