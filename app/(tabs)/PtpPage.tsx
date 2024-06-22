@@ -6,6 +6,7 @@ import InformationDisplay from '@/components/phpPageComponents/InformationDispla
 import ServerStatusDisplay from '@/components/phpPageComponents/ServerStatusDisplay';
 import ChangeTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 import SyncTimeButton from '@/components/phpPageComponents/SyncTimeButton';
+import ToggleRoleButton from '@/components/phpPageComponents/ToggleRoleButton';
 
 export default function PtpPage() {
     const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
@@ -48,6 +49,7 @@ export default function PtpPage() {
             />
             <ChangeTimeButton />
             <SyncTimeButton />
+            <ToggleRoleButton role={true}/>
         </ScrollView>
     );
 }
