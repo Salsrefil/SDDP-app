@@ -5,6 +5,7 @@ import UpdateTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
 import ServerStatusDisplay from '@/components/phpPageComponents/ServerStatusDisplay';
 import ChangeTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
+import SyncTimeButton from '@/components/phpPageComponents/SyncTimeButton';
 
 export default function PtpPage() {
     const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
@@ -46,6 +47,7 @@ export default function PtpPage() {
                 value={ptpInformation.clockCount.toString()}
             />
             <ChangeTimeButton />
+            <SyncTimeButton />
         </ScrollView>
     );
 }

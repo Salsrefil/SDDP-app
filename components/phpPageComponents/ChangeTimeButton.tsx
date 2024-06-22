@@ -1,5 +1,3 @@
-import { StyleSheet } from "react-native";
-import { Button } from 'react-native-elements';
 import PtpButton from "./PtpButton";
 
 function ChangeTimeButton() {
