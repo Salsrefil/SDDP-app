@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import {StyleSheet, ScrollView} from "react-native";
 import TimeDisplay from '@/components/phpPageComponents/TimeDisplay';
-import UpdateTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 import InformationDisplay from '@/components/phpPageComponents/InformationDisplay';
 import ServerStatusDisplay from '@/components/phpPageComponents/ServerStatusDisplay';
 import ChangeTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
@@ -10,13 +9,14 @@ import ToggleRoleButton from '@/components/phpPageComponents/ToggleRoleButton';
 
 export default function PtpPage() {
     const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
-    const [ptpInformation, setPtpInformation] = useState({ // currently hardcoded, this data should be loaded via http requests
-        clockCount: 1,
-        currentMaster: 'e0:d5:5e:83:cd:13',
-        currentOffset: -60455223566229,
-        currentTime: '2024-06-12 15:09:26.878196',
-        foreignMaster: true,
-        masterDescription: null
+    const [ptpInfo, setPtpInfo] = useState({ // currently hardcoded, this data should be loaded via http requests
+        clock_count: 1,
+        current_master: 'e0:d5:5e:83:cd:13',
+        current_offset: -60455223566229,
+        current_time: '2024-06-12 15:09:26.878196',
+        foreign_master: true,
+        master_description: null,
+        ptp_master_active: true
     });
 
     return (
@@ -26,30 +26,30 @@ export default function PtpPage() {
             />
             <InformationDisplay
                 name={"Role"}
-                value={ptpInformation.foreignMaster ? "Master" : "Slave"}
+                value={ptpInfo.foreign_master ? "Master" : "Slave"}
             />
             <InformationDisplay
                 name={"Master MAC"}
-                value={ptpInformation.currentMaster}
+                value={ptpInfo.current_master}
             />
             <InformationDisplay
                 name={"Master Description"}
-                value={ptpInformation.currentMaster}
+                value={ptpInfo.current_master}
             />
             <TimeDisplay
-                time={ptpInformation.currentTime}
+                time={ptpInfo.current_time}
             />
             <InformationDisplay
                 name={"Current Offset"}
-                value={ptpInformation.currentOffset.toString()}
+                value={ptpInfo.current_offset.toString()}
             />
             <InformationDisplay
                 name={"Clock Count"}
-                value={ptpInformation.clockCount.toString()}
+                value={ptpInfo.clock_count.toString()}
             />
             <ChangeTimeButton />
             <SyncTimeButton />
-            <ToggleRoleButton role={true}/>
+            <ToggleRoleButton role={ptpInfo.ptp_master_active}/>
         </ScrollView>
     );
 }
@@ -63,6 +63,5 @@ const styles = StyleSheet.create({
         paddingVertical: '3%',
         paddingTop: 30,
         paddingBottom: 30
-    },
-
+    }
 });
