@@ -6,6 +6,8 @@ import ServerStatusDisplay from '@/components/phpPageComponents/ServerStatusDisp
 import ChangeTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 import SyncTimeButton from '@/components/phpPageComponents/SyncTimeButton';
 import ToggleRoleButton from '@/components/phpPageComponents/ToggleRoleButton';
+import ServerContext from '@react-navigation/native/lib/typescript/src/ServerContext';
+import { ServerProvider, useServer } from '@/contexts/ServerContext';
 
 export default function PtpPage() {
     const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
@@ -20,37 +22,39 @@ export default function PtpPage() {
     });
 
     return (
-        <ScrollView contentContainerStyle={styles.view}>
-            <ServerStatusDisplay
-                status = {serverStatus}
-            />
-            <InformationDisplay
-                name={"Role"}
-                value={ptpInfo.foreign_master ? "Master" : "Slave"}
-            />
-            <InformationDisplay
-                name={"Master MAC"}
-                value={ptpInfo.current_master}
-            />
-            <InformationDisplay
-                name={"Master Description"}
-                value={ptpInfo.current_master}
-            />
-            <TimeDisplay
-                time={ptpInfo.current_time}
-            />
-            <InformationDisplay
-                name={"Current Offset"}
-                value={ptpInfo.current_offset.toString()}
-            />
-            <InformationDisplay
-                name={"Clock Count"}
-                value={ptpInfo.clock_count.toString()}
-            />
-            <ChangeTimeButton />
-            <SyncTimeButton />
-            <ToggleRoleButton role={ptpInfo.ptp_master_active}/>
-        </ScrollView>
+        <ServerProvider>
+            <ScrollView contentContainerStyle={styles.view}>
+                <ServerStatusDisplay
+                    status = {serverStatus}
+                />
+                <InformationDisplay
+                    name={"Role"}
+                    value={ptpInfo.foreign_master ? "Master" : "Slave"}
+                />
+                <InformationDisplay
+                    name={"Master MAC"}
+                    value={ptpInfo.current_master}
+                />
+                <InformationDisplay
+                    name={"Master Description"}
+                    value={ptpInfo.current_master}
+                />
+                <TimeDisplay
+                    time={ptpInfo.current_time}
+                />
+                <InformationDisplay
+                    name={"Current Offset"}
+                    value={ptpInfo.current_offset.toString()}
+                />
+                <InformationDisplay
+                    name={"Clock Count"}
+                    value={ptpInfo.clock_count.toString()}
+                />
+                <ChangeTimeButton />
+                <SyncTimeButton />
+                <ToggleRoleButton role={ptpInfo.ptp_master_active}/>
+            </ScrollView>
+        </ServerProvider>
     );
 }
 
