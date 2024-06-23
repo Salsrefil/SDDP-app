@@ -10,7 +10,7 @@ import DataFetcher from '@/components/phpPageComponents/DataFetcher';
 interface PtpInfo {
     clock_count: number;
     current_master: string;
-    current_offset: string;
+    current_offset: string | null;
     current_time: string;
     foreign_master: boolean;
     master_description: string | null;
