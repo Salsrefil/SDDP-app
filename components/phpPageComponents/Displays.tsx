@@ -21,9 +21,6 @@ interface PtpInfo {
 const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}) => {
     return (
         <>
-            <ServerStatusDisplay
-                status={serverStatus}
-            />
             <InformationDisplay
                     name={"Role"}
                     value={ptpInfo.foreign_master ? "Slave" : "Master"}
