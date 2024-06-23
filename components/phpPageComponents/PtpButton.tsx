@@ -23,10 +23,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#2B2E46',
-        width: '80%',
+        width: '100%',
         height: 80,
         borderRadius: 40,
-        marginTop: 10
+        marginTop: 10,
+        borderColor: 'white',
+        borderWidth: 3
     },
     title: {
         textAlign: 'center',
