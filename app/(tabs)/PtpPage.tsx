@@ -6,6 +6,7 @@ import ToggleRoleButton from '@/components/phpPageComponents/ToggleRoleButton';
 import { ServerProvider} from '@/contexts/ServerContext';
 import Displays from '@/components/phpPageComponents/Displays';
 import DataFetcher from '@/components/phpPageComponents/DataFetcher';
+import SendCurrentTimeButton from '@/components/phpPageComponents/SendCurrentTimeButton';
 
 interface PtpInfo {
     clock_count: number;
@@ -37,7 +38,13 @@ const PtpPage =() => {
                 <Displays
                     ptpInfo={ptpInfo}
                 />
-                {ptpInfo.ptp_master_active && ( <ChangeTimeButton /> )}
+                {ptpInfo.ptp_master_active && (
+                    <>
+                        <ChangeTimeButton />
+                        <SendCurrentTimeButton />
+                    </>
+                )}
+                <SendCurrentTimeButton />
                 {(!ptpInfo.ptp_master_active && ptpInfo.foreign_master) &&
                  ( <SyncTimeButton role={ptpInfo.ptp_master_active} foreignMaster={ptpInfo.foreign_master} /> )
                 }
