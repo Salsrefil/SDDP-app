@@ -23,31 +23,40 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
         <>
             <InformationDisplay
                 name={"Role"}
-                value={ptpInfo.ptp_master_active ? "Slave" : "Master"}
+                value={ptpInfo.ptp_master_active ? "Master" : "Slave"}
             />
-            <InformationDisplay
-                name={"Master MAC"}
-                value={ptpInfo.current_master}
-            />
-            {!ptpInfo.ptp_master_active && (
+            {(!ptpInfo.ptp_master_active && !ptpInfo.foreign_master) ? (
                 <InformationDisplay
-                    name={"Master Description"}
-                    value={ptpInfo.master_description || 'Not Defined'}
+                    name={"Status"}
+                    value={"No foreign masters found."}
                 />
+            ) : (
+                <>
+                    <InformationDisplay
+                        name={"Master MAC"}
+                        value={ptpInfo.current_master}
+                    />
+                    {!ptpInfo.ptp_master_active && (
+                        <InformationDisplay
+                            name={"Master Description"}
+                            value={ptpInfo.master_description || 'Not Defined'}
+                        />
+                    )}
+                    <TimeDisplay
+                        time={ptpInfo.current_time}
+                    />
+                    {!ptpInfo.ptp_master_active && (
+                        <InformationDisplay
+                            name={"Current Offset"}
+                            value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : '0'}
+                        />
+                    )}
+                    <InformationDisplay
+                        name={"Clock Count"}
+                        value={ptpInfo.clock_count.toString()}
+                    />
+                </>
             )}
-            <TimeDisplay
-                time={ptpInfo.current_time}
-            />
-            {!ptpInfo.ptp_master_active && (
-                <InformationDisplay
-                    name={"Current Offset"}
-                    value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : '0'}
-                />
-            )}
-            <InformationDisplay
-                name={"Clock Count"}
-                value={ptpInfo.clock_count.toString()}
-            />
         </>
     );
 };
