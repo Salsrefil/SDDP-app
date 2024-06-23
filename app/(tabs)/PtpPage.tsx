@@ -18,7 +18,6 @@ interface PtpInfo {
 };
 
 const PtpPage =() => {
-    const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
     const [ptpInfo, setPtpInfo] = useState<PtpInfo>({ // currently hardcoded, this data should be loaded via http requests
         clock_count: 0,
         current_master: 'Unknown',
@@ -33,11 +32,9 @@ const PtpPage =() => {
         <ServerProvider>
             <DataFetcher
                 setPtpInfo={setPtpInfo}
-                setServerStatus={setServerStatus}
             />
             <ScrollView contentContainerStyle={styles.view}>
                 <Displays
-                    serverStatus={serverStatus}
                     ptpInfo={ptpInfo}
                 />
                 <ChangeTimeButton />

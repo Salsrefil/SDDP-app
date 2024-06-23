@@ -1,10 +1,8 @@
 import React from "react";
-import ServerStatusDisplay from "./ServerStatusDisplay";
 import InformationDisplay from "./InformationDisplay";
 import TimeDisplay from "./TimeDisplay";
 
 interface DisplaysProps {
-    serverStatus: boolean;
     ptpInfo: PtpInfo;
 };
 
@@ -18,7 +16,7 @@ interface PtpInfo {
     ptp_master_active: boolean;
 };
 
-const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}) => {
+const Displays:React.FunctionComponent<DisplaysProps> = ({ptpInfo}) => {
     return (
         <>
             <InformationDisplay

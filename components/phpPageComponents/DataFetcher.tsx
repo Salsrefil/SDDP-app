@@ -4,7 +4,6 @@ import axios from 'axios';
 
 interface DataFetcherProps {
     setPtpInfo: (info: PtpInfo) => void;
-    setServerStatus: (status: boolean) => void;
 };
 
 interface PtpInfo {
@@ -17,7 +16,7 @@ interface PtpInfo {
     ptp_master_active: boolean;
 };
 
-const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo, setServerStatus}) => {
+const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo}) => {
     const { address } = useServer();
 
     const fetchPtpInfo = async () => {
@@ -25,9 +24,7 @@ const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo, setS
         try {
             let response = await axios.get(url);
             setPtpInfo(response.data);
-            setServerStatus(true);
         } catch (error) {
-            setServerStatus(false);
         }
     };
 
