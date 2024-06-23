@@ -44,7 +44,6 @@ const PtpPage =() => {
                         <SendCurrentTimeButton />
                     </>
                 )}
-                <ChangeTimeButton />
                 {(!ptpInfo.ptp_master_active && ptpInfo.foreign_master) &&
                  ( <SyncTimeButton role={ptpInfo.ptp_master_active} foreignMaster={ptpInfo.foreign_master} /> )
                 }
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#21233D',
         paddingVertical: '3%',
         paddingTop: 30,
-        paddingBottom: 30
+        paddingBottom: 30,
     }
 });
 

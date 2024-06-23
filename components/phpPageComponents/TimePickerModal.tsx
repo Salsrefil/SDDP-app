@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import {View, Text, Button, Modal, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, Modal, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import { DatePickerModal, registerTranslation, en } from 'react-native-paper-dates';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {Button} from 'react-native-elements';
 import moment from "moment";
 
 registerTranslation('en', en);
@@ -91,7 +91,7 @@ const TimePickerModal:React.FunctionComponent<TimePickerModalProps> = ({modalVis
                     />
 
                     <View style={styles.inputContainer}>
-                        <Text>Hours</Text>
+                        <Text style={styles.inputLabel}>Hours</Text>
                         <TextInput
                             style={styles.input}
                             keyboardType="numeric"
@@ -101,7 +101,7 @@ const TimePickerModal:React.FunctionComponent<TimePickerModalProps> = ({modalVis
                     </View>
 
                     <View style={styles.inputContainer}>
-                        <Text>Minutes</Text>
+                        <Text style={styles.inputLabel}>Minutes</Text>
                         <TextInput
                             style={styles.input}
                             keyboardType="numeric"
@@ -111,7 +111,7 @@ const TimePickerModal:React.FunctionComponent<TimePickerModalProps> = ({modalVis
                     </View>
 
                     <View style={styles.inputContainer}>
-                        <Text>Seconds</Text>
+                        <Text style={styles.inputLabel}>Seconds</Text>
                         <TextInput
                             style={styles.input}
                             keyboardType="numeric"
@@ -121,7 +121,7 @@ const TimePickerModal:React.FunctionComponent<TimePickerModalProps> = ({modalVis
                     </View>
 
                     <View style={styles.inputContainer}>
-                        <Text>Milliseconds</Text>
+                        <Text style={styles.inputLabel}>Milliseconds</Text>
                         <TextInput
                             style={styles.input}
                             keyboardType="numeric"
@@ -130,8 +130,8 @@ const TimePickerModal:React.FunctionComponent<TimePickerModalProps> = ({modalVis
                         />
                     </View>
 
-                    <Button title="Change Time" onPress={passTime} />
-                    <Button title="Close" onPress={() => setModalVisible(!modalVisible)} />
+                    <Button buttonStyle={styles.timeButton} title="Change Time" onPress={passTime} />
+                    <Button buttonStyle={styles.timeButton} title="Close" onPress={() => setModalVisible(!modalVisible)} />
                 </View>
             </View>
         </Modal>
@@ -145,12 +145,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
+    inputLabel: {
+        fontSize: 20,
+        color: 'white',
+        width: '40%',
+        textAlign: 'right'
+    },
     modalView: {
         justifyContent:'center',
         backgroundColor: '#2B2E46',
         borderRadius: 20,
         borderWidth: 2,
-        height: 540,
+        height: 360,
         width: 360,
         borderColor:'white',
         alignItems: 'center',
@@ -164,21 +170,36 @@ const styles = StyleSheet.create({
     },
     dateText: {
       marginBottom: 20,
-      fontSize: 18,
+      fontSize: 32,
       textAlign: 'center',
+      color: 'white',
+      fontWeight:'bold'
     },
     inputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 10,
+      width:'100%'
     },
     input: {
       borderBottomWidth: 1,
       borderColor: 'gray',
       marginLeft: 10,
-      width: 60,
+      width: '50%',
       textAlign: 'center',
+      color:'white',
     },
+    timeButton: {
+        width: 160,
+        marginBottom: 15,
+        height: 45,
+        fontSize: 32,
+        color: 'white',
+        backgroundColor:'',
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 20
+    }
   });
 
 export default TimePickerModal;
