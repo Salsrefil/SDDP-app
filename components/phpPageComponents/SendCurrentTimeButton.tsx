@@ -22,7 +22,7 @@ const SendCurrentTimeButton = () => {
     };
 
     return (
-        <PtpButton handlePress={sendCurrentTime} text="Set current time"/>
+        <PtpButton handlePress={sendCurrentTime} text="Set Current Time"/>
     );
 }
 
