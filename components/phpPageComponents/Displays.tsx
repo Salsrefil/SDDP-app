@@ -5,17 +5,18 @@ import TimeDisplay from "./TimeDisplay";
 
 interface DisplaysProps {
     serverStatus: boolean;
-    ptpInfo: {
-        clock_count: number;
-        current_master: string;
-        current_offset: string;
-        current_time: string;
-        foreign_master: boolean;
-        master_description: string | null;
-        ptp_master_active: boolean;
-    };
+    ptpInfo: PtpInfo;
 };
 
+interface PtpInfo {
+    clock_count: number;
+    current_master: string;
+    current_offset: string;
+    current_time: string;
+    foreign_master: boolean;
+    master_description: string | null;
+    ptp_master_active: boolean;
+};
 
 const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}) => {
     return (

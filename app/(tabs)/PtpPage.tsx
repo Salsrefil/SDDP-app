@@ -1,27 +1,45 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView} from "react-native";
+import {StyleSheet, ScrollView, Modal} from "react-native";
 import ChangeTimeButton from '@/components/phpPageComponents/ChangeTimeButton';
 import SyncTimeButton from '@/components/phpPageComponents/SyncTimeButton';
 import ToggleRoleButton from '@/components/phpPageComponents/ToggleRoleButton';
-import { ServerProvider, useServer } from '@/contexts/ServerContext';
+import { ServerProvider} from '@/contexts/ServerContext';
 import Displays from '@/components/phpPageComponents/Displays';
+import DataFetcher from '@/components/phpPageComponents/DataFetcher';
 
-export default function PtpPage() {
+interface PtpInfo {
+    clock_count: number;
+    current_master: string;
+    current_offset: string;
+    current_time: string;
+    foreign_master: boolean;
+    master_description: string | null;
+    ptp_master_active: boolean;
+};
+
+const PtpPage =() => {
     const [serverStatus, setServerStatus] = useState(false); // false - disabled | true - active
-    const [ptpInfo, setPtpInfo] = useState({ // currently hardcoded, this data should be loaded via http requests
-        clock_count: 1,
-        current_master: 'e0:d5:5e:83:cd:13',
-        current_offset: "-60455223566229",
-        current_time: '2024-06-12 15:09:26.878196',
-        foreign_master: true,
+    const [ptpInfo, setPtpInfo] = useState<PtpInfo>({ // currently hardcoded, this data should be loaded via http requests
+        clock_count: 0,
+        current_master: 'Unknown',
+        current_offset: "Unknown",
+        current_time: 'Unknown',
+        foreign_master: false,
         master_description: null,
-        ptp_master_active: true
+        ptp_master_active: false
     });
 
     return (
         <ServerProvider>
+            <DataFetcher
+                setPtpInfo={setPtpInfo}
+                setServerStatus={setServerStatus}
+            />
             <ScrollView contentContainerStyle={styles.view}>
-                <Displays serverStatus={serverStatus} ptpInfo={ptpInfo}/>
+                <Displays
+                    serverStatus={serverStatus}
+                    ptpInfo={ptpInfo}
+                />
                 <ChangeTimeButton />
                 <SyncTimeButton />
                 <ToggleRoleButton role={ptpInfo.ptp_master_active}/>
@@ -41,3 +59,5 @@ const styles = StyleSheet.create({
         paddingBottom: 30
     }
 });
+
+export default PtpPage;
