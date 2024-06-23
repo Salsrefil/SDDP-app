@@ -12,7 +12,7 @@ type SyncTimeProps = {
 const SyncTimeButton:React.FunctionComponent<SyncTimeProps> = ({role, foreignMaster}) => {
     const { address } = useServer();
 
-    const synchronizeTime = () => {
+    const synchronizeTime = async () => {
         if ((!role && foreignMaster) === false) {
             return;
         }

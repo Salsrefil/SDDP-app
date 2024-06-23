@@ -44,6 +44,7 @@ const PtpPage =() => {
                         <SendCurrentTimeButton />
                     </>
                 )}
+                <ChangeTimeButton />
                 {(!ptpInfo.ptp_master_active && ptpInfo.foreign_master) &&
                  ( <SyncTimeButton role={ptpInfo.ptp_master_active} foreignMaster={ptpInfo.foreign_master} /> )
                 }

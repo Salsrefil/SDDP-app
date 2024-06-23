@@ -5,7 +5,7 @@ import axios from "axios";
 const SendCurrentTimeButton = () => {
     const {address} = useServer();
 
-    const sendCurrentTime = () => {
+    const sendCurrentTime = async () => {
         const url = `${address}/set_time`;
         const currentTime={
             time: new Date().toJSON()
