@@ -13,7 +13,6 @@ const ChangeTimeButton = () => {
         const newTime = {
             time: date.toJSON()
         }
-        console.log(newTime);
         try {
             let response = await axios.post(url, newTime, {
                 headers: {
