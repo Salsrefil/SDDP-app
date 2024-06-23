@@ -38,7 +38,9 @@ const PtpPage =() => {
                     ptpInfo={ptpInfo}
                 />
                 {ptpInfo.ptp_master_active && ( <ChangeTimeButton /> )}
-                {(!ptpInfo.ptp_master_active && ptpInfo.foreign_master) && ( <SyncTimeButton /> )}
+                {(!ptpInfo.ptp_master_active && ptpInfo.foreign_master) &&
+                 ( <SyncTimeButton role={ptpInfo.ptp_master_active} foreignMaster={ptpInfo.foreign_master} /> )
+                }
                 <ToggleRoleButton role={ptpInfo.ptp_master_active}/>
             </ScrollView>
         </ServerProvider>

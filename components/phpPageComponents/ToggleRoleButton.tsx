@@ -12,6 +12,11 @@ const ToggleRoleButton:React.FunctionComponent<ToggleRoleProps> = ({role}) =>{
 
     const toggleRole = () => {
         const url = `${address}/ptp_toggle`;
+        try {
+            let response = axios.post(url);
+        } catch (error) {
+            
+        }
     };
 
     return (
