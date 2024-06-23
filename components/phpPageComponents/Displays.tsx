@@ -22,32 +22,32 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
     return (
         <>
             <InformationDisplay
-                    name={"Role"}
-                    value={ptpInfo.ptp_master_active ? "Slave" : "Master"}
-                />
+                name={"Role"}
+                value={ptpInfo.ptp_master_active ? "Slave" : "Master"}
+            />
+            <InformationDisplay
+                name={"Master MAC"}
+                value={ptpInfo.current_master}
+            />
+            {!ptpInfo.ptp_master_active && (
                 <InformationDisplay
-                    name={"Master MAC"}
-                    value={ptpInfo.current_master}
+                    name={"Master Description"}
+                    value={ptpInfo.master_description || 'Not Defined'}
                 />
-                {!ptpInfo.ptp_master_active && (
-                    <InformationDisplay
-                        name={"Master Description"}
-                        value={ptpInfo.master_description || 'Not Defined'}
-                    />
-                )}
-                <TimeDisplay
-                    time={ptpInfo.current_time}
-                />
-                {!ptpInfo.ptp_master_active && (
-                    <InformationDisplay
-                        name={"Current Offset"}
-                        value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : '0'}
-                    />
-                )}
+            )}
+            <TimeDisplay
+                time={ptpInfo.current_time}
+            />
+            {!ptpInfo.ptp_master_active && (
                 <InformationDisplay
-                    name={"Clock Count"}
-                    value={ptpInfo.clock_count.toString()}
+                    name={"Current Offset"}
+                    value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : '0'}
                 />
+            )}
+            <InformationDisplay
+                name={"Clock Count"}
+                value={ptpInfo.clock_count.toString()}
+            />
         </>
     );
 };
