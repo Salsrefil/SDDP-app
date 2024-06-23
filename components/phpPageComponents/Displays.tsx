@@ -11,7 +11,7 @@ interface DisplaysProps {
 interface PtpInfo {
     clock_count: number;
     current_master: string;
-    current_offset: string;
+    current_offset: string | null;
     current_time: string;
     foreign_master: boolean;
     master_description: string | null;
@@ -38,7 +38,7 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
                 />
                 <InformationDisplay
                     name={"Current Offset"}
-                    value={ptpInfo.current_offset.toString()}
+                    value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : ''}
                 />
                 <InformationDisplay
                     name={"Clock Count"}
