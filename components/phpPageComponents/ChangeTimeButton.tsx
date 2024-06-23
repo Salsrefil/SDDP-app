@@ -1,9 +1,11 @@
 import PtpButton from "./PtpButton";
+import { useServer } from "@/contexts/ServerContext";
 
-function ChangeTimeButton() {
+const ChangeTimeButton = () => {
+    const {address} = useServer();
 
     const changeTime = () => {
-
+        const url = `${address}/set_time`;
     };
 
     return (

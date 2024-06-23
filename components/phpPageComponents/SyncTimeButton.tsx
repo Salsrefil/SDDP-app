@@ -1,9 +1,12 @@
 import PtpButton from "./PtpButton";
+import { useServer } from "@/contexts/ServerContext";
+import axios from "axios";
 
-function SyncTimeButton() {
+const SyncTimeButton = () => {
+    const { address } = useServer();
 
     const synchronizeTime = () => {
-
+        const url = `${address}/sync_time`;
     };
 
     return (
