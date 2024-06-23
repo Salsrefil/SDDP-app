@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from "react-native";
 
 interface InformationDisplayProps {
     name: string,
-    value: string
+    value: string | null
 };
 
 const InformationDisplay: React.FunctionComponent<InformationDisplayProps> = ({name, value}) =>{

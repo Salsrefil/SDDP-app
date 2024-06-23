@@ -26,7 +26,7 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
             />
             <InformationDisplay
                     name={"Role"}
-                    value={ptpInfo.foreign_master ? "Master" : "Slave"}
+                    value={ptpInfo.foreign_master ? "Slave" : "Master"}
                 />
                 <InformationDisplay
                     name={"Master MAC"}
@@ -34,7 +34,7 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
                 />
                 <InformationDisplay
                     name={"Master Description"}
-                    value={ptpInfo.current_master}
+                    value={ptpInfo.master_description || 'Not Defined'}
                 />
                 <TimeDisplay
                     time={ptpInfo.current_time}
