@@ -23,23 +23,27 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
         <>
             <InformationDisplay
                     name={"Role"}
-                    value={ptpInfo.foreign_master ? "Slave" : "Master"}
+                    value={ptpInfo.ptp_master_active ? "Slave" : "Master"}
                 />
                 <InformationDisplay
                     name={"Master MAC"}
                     value={ptpInfo.current_master}
                 />
-                <InformationDisplay
-                    name={"Master Description"}
-                    value={ptpInfo.master_description || 'Not Defined'}
-                />
+                {!ptpInfo.ptp_master_active && (
+                    <InformationDisplay
+                        name={"Master Description"}
+                        value={ptpInfo.master_description || 'Not Defined'}
+                    />
+                )}
                 <TimeDisplay
                     time={ptpInfo.current_time}
                 />
-                <InformationDisplay
-                    name={"Current Offset"}
-                    value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : ''}
-                />
+                {!ptpInfo.ptp_master_active && (
+                    <InformationDisplay
+                        name={"Current Offset"}
+                        value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : '0'}
+                    />
+                )}
                 <InformationDisplay
                     name={"Clock Count"}
                     value={ptpInfo.clock_count.toString()}
