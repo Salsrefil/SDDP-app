@@ -48,7 +48,7 @@ const Displays:React.FunctionComponent<DisplaysProps> = ({serverStatus, ptpInfo}
                     {!ptpInfo.ptp_master_active && (
                         <InformationDisplay
                             name={"Current Offset"}
-                            value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() : '0'}
+                            value={ptpInfo.current_offset ? ptpInfo.current_offset.toString() + ' ns' : '0 ns'}
                         />
                     )}
                     <InformationDisplay

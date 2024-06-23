@@ -36,7 +36,7 @@ const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo, setS
 
         const intervalId = setInterval(() => {
             fetchPtpInfo();
-        }, 1000) // currently will fetch data in 5 seconds long intervals.
+        }, 1000) // currently will fetch data in 1 seconds long intervals.
 
         return () => clearInterval(intervalId);
     }, [])
