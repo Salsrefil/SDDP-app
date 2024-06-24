@@ -4,14 +4,12 @@ import InformationDisplay from '@/components/phpPageComponents/InformationDispla
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
-import { ServerProvider, useServer } from "@/contexts/ServerContext";
 import AlertBox from '@/components/AlertBox';
-import { useRouter} from 'expo-router';
+import { useRouter } from 'expo-router';
 
 export default function DhcpPage() {
     const router = useRouter();
-    const { address } = useServer();
-    //const  address  = "http://127.0.0.1:5000"
+    const address = "http://10.147.17.8"
 
     const [dhcpInformation, setDhcpInformation] = useState({
         dhcp_server_active: false,
@@ -35,9 +33,9 @@ export default function DhcpPage() {
         message: "",
     });
 
-    const fetchDhcpInfo = async (setState: typeof setDhcpInformation) => {
+    const fetchDhcpInfo = async (setState: React.Dispatch<React.SetStateAction<typeof dhcpInformation>>) => {
         try {
-            const response = await fetch(address + '/dhcp_info', { method: 'GET' });
+            const response = await fetch(`${address}/dhcp_info`, { method: 'GET' });
             if (!response.ok) {
                 throw new Error('Failed to fetch DHCP information');
             }
@@ -66,7 +64,7 @@ export default function DhcpPage() {
             return;
         }
         try {
-            const response = await fetch(address + '/dhcp_toggle', {
+            const response = await fetch(`${address}/dhcp_toggle`, {
                 method: 'POST',
             });
             if (!response.ok) {
@@ -80,7 +78,7 @@ export default function DhcpPage() {
 
     const handleScanForDhcp = async () => {
         try {
-            const response = await fetch(address + '/dhcp_scan', {
+            const response = await fetch(`${address}/dhcp_scan`, {
                 method: 'POST',
             });
             if (!response.ok) {
@@ -132,48 +130,45 @@ export default function DhcpPage() {
     }
 
     return (
-        <ServerProvider>
-        <ScrollView contentContainerStyle={styles.view}>
-            {alert.visible && (
-                <AlertBox
-                    visible={alert.visible}
-                    title={alert.title}
-                    titleColor={alert.titleColor}
-                    message={alert.message}
-                    onClose={() => setAlert({ ...alert, visible: false })}
-                />
-            )}
-            <InformationDisplay
-                name={"Current Mode"}
-                value={dhcpInformation.dhcp_server_active ? "Server" : "Client"}
-            />
-            {!dhcpInformation.dhcp_server_active && (
+            <ScrollView contentContainerStyle={styles.view}>
+                {alert.visible && (
+                    <AlertBox
+                        visible={alert.visible}
+                        title={alert.title}
+                        titleColor={alert.titleColor}
+                        message={alert.message}
+                        onClose={() => setAlert({ ...alert, visible: false })}
+                    />
+                )}
                 <InformationDisplay
-                    name={"Foreign server IP"}
-                    value={dhcpInformation.foreign_dhcp_server ? dhcpInformation.foreign_dhcp_server : "No foreign DHCP server detected"}
+                    name={"Current Mode"}
+                    value={dhcpInformation.dhcp_server_active ? "Server" : "Client"}
                 />
-            )}
-            <InformationDisplay
-                name={dhcpInformation.dhcp_server_active ? "Static IP" : "Leased IP"}
-                value={dhcpInformation.my_ip ? dhcpInformation.my_ip : "No address"}
-            />
-            {dhcpInformation.dhcp_server_active ? (
-                dhcpInformation.leases ? (
-                    <LeasesListDisplay leases={dhcpInformation.leases} />
+                {!dhcpInformation.dhcp_server_active && (
+                    <InformationDisplay
+                        name={"Foreign server IP"}
+                        value={dhcpInformation.foreign_dhcp_server ? dhcpInformation.foreign_dhcp_server : "No foreign DHCP server detected"}
+                    />
+                )}
+                <InformationDisplay
+                    name={dhcpInformation.dhcp_server_active ? "Static IP" : "Leased IP"}
+                    value={dhcpInformation.my_ip ? dhcpInformation.my_ip : "No address"}
+                />
+                {dhcpInformation.dhcp_server_active ? (
+                    dhcpInformation.leases ? (
+                        <LeasesListDisplay leases={dhcpInformation.leases} />
+                    ) : (
+                        <InformationDisplay name={"List of leases"} value={"No available leases to show"} />
+                    )
                 ) : (
-                    <InformationDisplay name={"List of leases"} value={"No available leases to show"} />
-                )
-            ) : (
-                <Text></Text>
-            )}
-            <ServerClientSwitchButton
-                CurrentView={dhcpInformation.dhcp_server_active ? "Client" : "Server"}
-                onPress={toggleDhcpServer}
-            />
-            <ScanForDhcpButton onPress={handleScanForDhcp} />
-        </ScrollView>
-        </ServerProvider>
-        
+                    <Text></Text>
+                )}
+                <ServerClientSwitchButton
+                    CurrentView={dhcpInformation.dhcp_server_active ? "Client" : "Server"}
+                    onPress={toggleDhcpServer}
+                />
+                <ScanForDhcpButton onPress={handleScanForDhcp} />
+            </ScrollView>
     );
 }
 
