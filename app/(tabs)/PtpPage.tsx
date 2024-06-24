@@ -19,7 +19,7 @@ interface PtpInfo {
 };
 
 const PtpPage =() => {
-    const [ptpInfo, setPtpInfo] = useState<PtpInfo>({ // currently hardcoded, this data should be loaded via http requests
+    const [ptpInfo, setPtpInfo] = useState<PtpInfo>({
         clock_count: 0,
         current_master: 'Unknown',
         current_offset: "Unknown",

@@ -90,6 +90,9 @@ const DhcpSection = () => {
                 Static/Leased IP - Static IP address when device works as DHCP server,
                  or leased IP address when device leases IP from foreign server
             </ListItem>
+            <ListItem>
+                List of leases - list of leased IP addresses, displays leased IP and device's MAC address.
+            </ListItem>
             <Text style={styles.text}>
                 This view also has buttons for manipulating device behavior:
             </Text>
