@@ -1,6 +1,36 @@
 import React from "react";
 import {View, Text, StyleSheet} from 'react-native';
 
+type ListItemProps = {
+    children: React.ReactNode;
+};
+
+const ListItem:React.FC<ListItemProps>  = ({ children }) => {
+    return (
+        <View style={styles.listItem}>
+            <Text style={styles.bulletPoint}>{'\u2022'}</Text>
+            <Text style={styles.listItemText}>{children}</Text>
+        </View>
+    );
+};
+
+const ViewsSection = () => {
+    return (
+        <>
+            <Text style={styles.textHeader}>Views</Text>
+            <Text style={styles.text}>
+                Application is split into 3 views:
+            </Text>
+            <ListItem>Home</ListItem>
+            <ListItem>DHCP</ListItem>
+            <ListItem>PTP</ListItem>
+            <Text style={styles.text}>
+                These views are accessible using the navigation bar located at the bottom of the screen.
+            </Text>
+        </>
+    );
+}
+
 const HowToUse = () => {
     return (
         <View style={styles.view}>
@@ -8,7 +38,10 @@ const HowToUse = () => {
                 How to use
             </Text>
             <View style={styles.content}>
-                <Text style={styles.textHeader}>Views</Text>
+                <ViewsSection/>
+                <Text style={styles.textHeader}>Home</Text>
+                <Text style={styles.textHeader}>PTP</Text>
+                <Text style={styles.textHeader}>DHCP</Text>
             </View>
         </View>
     );
@@ -19,14 +52,15 @@ const styles = StyleSheet.create({
         height: 'auto',
         width: 360,
         alignContent: 'center',
-        marginVertical: 10
+        marginVertical: 15
     },
     header: {
         fontSize: 32,
         color: 'white',
         fontWeight: 'bold',
         width: '100%',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: 2
     },
     content: {
         height: 'auto',
@@ -41,8 +75,29 @@ const styles = StyleSheet.create({
     textHeader: {
         fontSize: 22,
         color: 'white',
-        fontWeight: 'bold'
-    }
+        fontWeight: 'bold',
+        fontStyle: 'italic'
+    },
+    text: {
+        fontSize: 16,
+        color: 'white',
+        paddingLeft: 15
+    },
+    listItem: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        paddingLeft: 20,
+        marginVertical: 5
+    },
+    bulletPoint: {
+        fontSize: 16,
+        color: 'white',
+        marginRight: 5,
+    },
+    listItemText: {
+        fontSize: 16,
+        color: 'white',
+    },
 })
 
 export default HowToUse;
