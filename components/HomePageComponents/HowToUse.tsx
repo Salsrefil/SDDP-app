@@ -31,6 +31,17 @@ const ViewsSection = () => {
     );
 }
 
+const HomeSection = () => {
+    return (
+        <>
+            <Text style={styles.textHeader}>Home</Text>
+            <Text style={styles.text}>
+                Application starting point. This view displays the application logo, project acronym, an overview, and a tutorial.
+            </Text>
+        </>
+    );
+}
+
 const HowToUse = () => {
     return (
         <View style={styles.view}>
@@ -39,7 +50,7 @@ const HowToUse = () => {
             </Text>
             <View style={styles.content}>
                 <ViewsSection/>
-                <Text style={styles.textHeader}>Home</Text>
+                <HomeSection />
                 <Text style={styles.textHeader}>PTP</Text>
                 <Text style={styles.textHeader}>DHCP</Text>
             </View>
@@ -76,7 +87,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: 'white',
         fontWeight: 'bold',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        marginVertical: 5
     },
     text: {
         fontSize: 16,
