@@ -63,7 +63,7 @@ const PtpSection = () => {
                 Only available when device works as a master
             </ListItem>
             <ListItem>
-                Set Current Time - Sends current time to device to be used as new shared time. Only available when
+                Set Current Time - Sends mobile device's time to be used as new shared time. Only available when
                 device works as a master.
             </ListItem>
             <ListItem>
