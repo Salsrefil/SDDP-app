@@ -1,3 +1,4 @@
+import Overview from '@/components/HomePageComponents/Overview';
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, Image} from 'react-native';
 
@@ -10,13 +11,11 @@ export default function HomePage() { // keep file named index. App breaks down a
           style = {styles.image}
         />
         <Text style={styles.acronym}>SDDiP</Text>
-        <Text style={styles.header}>Overview</Text>
-        <Text style={styles.textField}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida, nibh nec fermentum scelerisque, magna felis eleifend nulla, a accumsan dolor arcu vel turpis. Nulla tincidunt massa tristique nibh elementum tristique. Sed augue orci, tristique et leo ut, aliquam dapibus ligula. Pellentesque in lorem elementum, pulvinar tortor et, accumsan leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse venenatis et leo eget condimentum. Sed at massa lacus. Praesent porta felis id velit interdum vehicula. Quisque laoreet viverra commodo. Nunc eu convallis dui. Praesent ut accumsan leo, ac posuere lorem. Ut porttitor, ex id finibus laoreet, lorem orci varius dolor, vitae vestibulum libero quam at dui. Donec sed ultrices turpis, vitae tristique neque. Praesent bibendum, dui et hendrerit rhoncus, enim tellus porttitor ante, ac dapibus risus arcu sed erat. 
-        </Text>
+        <Overview />
         <Text style={styles.header}>How to use</Text>
         <Text style={styles.textField}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida, nibh nec fermentum scelerisque, magna felis eleifend nulla, a accumsan dolor arcu vel turpis. Nulla tincidunt massa tristique nibh elementum tristique. Sed augue orci, tristique et leo ut, aliquam dapibus ligula. Pellentesque in lorem elementum, pulvinar tortor et, accumsan leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse venenatis et leo eget condimentum. Sed at massa lacus. Praesent porta felis id velit interdum vehicula. Quisque laoreet viverra commodo. Nunc eu convallis dui. Praesent ut accumsan leo, ac posuere lorem. Ut porttitor, ex id finibus laoreet, lorem orci varius dolor, vitae vestibulum libero quam at dui. Donec sed ultrices turpis, vitae tristique neque. Praesent bibendum, dui et hendrerit rhoncus, enim tellus porttitor ante, ac dapibus risus arcu sed erat. 
+          Application is split into three views: Home, PTP, DHCP, all accessible from navigation bar location at the bottom of screen.
+          Home View - The start point of application.
         </Text>
       </View>
     </ScrollView>
