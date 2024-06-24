@@ -9,7 +9,7 @@ const Overview = () => {
             </Text>
             <Text style={styles.content}>
                 The main goal of this application is to provide user friendly interface for managing and configuring DHCP and PTP servers
-                together with displaying crucial information about current server's states. With refresh rate of 1 second, application provides
+                together with displaying crucial information about server's current states. With refresh rate of 1 second, application provides
                 insight into the most up-to-date data.
             </Text>
         </View>

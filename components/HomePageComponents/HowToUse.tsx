@@ -152,13 +152,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
         color: 'white',
-        paddingLeft: 15
+        paddingLeft: 15,
+        paddingRight: 5
     },
     listItem: {
         flexDirection: 'row',
         alignItems: 'flex-start',
         paddingLeft: 20,
-        marginVertical: 5
+        marginVertical: 5,
+        marginRight: 10
     },
     bulletPoint: {
         fontSize: 16,
