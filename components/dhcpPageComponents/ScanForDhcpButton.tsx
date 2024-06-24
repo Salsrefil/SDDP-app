@@ -21,10 +21,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#2B2E46',
-        width: '100%',
-        minWidth: '100%',
-        height: 'auto',
-        minHeight: 80,
+        width: "80%",
+        height: 80,
         borderRadius: 40,
         marginTop: 10,
         borderColor: 'white',
@@ -34,9 +32,8 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         color: 'white',
-        fontSize: 26,
-        width: '100%',
-        marginHorizontal: 10,
+        fontSize: 32,
+        width: '100%'
     }
 })
 
