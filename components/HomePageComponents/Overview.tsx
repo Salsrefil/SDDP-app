@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     view: {
         height: 'auto',
         width: 360,
-        alignContent: 'center'
+        alignContent: 'center',
+        marginVertical: 10
     },
     header: {
         fontSize: 32,

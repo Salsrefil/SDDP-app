@@ -5,7 +5,7 @@ const HowToUse = () => {
     return (
         <View style={styles.view}>
             <Text style={styles.header}>
-                How to Use
+                How to use
             </Text>
             <View style={styles.content}>
                 <Text style={styles.textHeader}>Views</Text>
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     view: {
         height: 'auto',
         width: 360,
-        alignContent: 'center'
+        alignContent: 'center',
+        marginVertical: 10
     },
     header: {
         fontSize: 32,
