@@ -52,7 +52,7 @@ const stylesheet = StyleSheet.create({
     leaseItem: {
         backgroundColor: '#2B2E46',
         borderRadius: 40,
-        marginTop: 10,
+        marginTop: 5,
         width: '100%',
         alignSelf: 'center',
     },
@@ -60,6 +60,7 @@ const stylesheet = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
+        width: "80%",
         borderColor: 'gray',
         borderRadius: 10,
     },
@@ -67,7 +68,7 @@ const stylesheet = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         marginVertical: 5,
     },
     label: {

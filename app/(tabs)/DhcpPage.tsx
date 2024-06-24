@@ -4,13 +4,14 @@ import InformationDisplay from '@/components/phpPageComponents/InformationDispla
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
-import Config from '@/config';
+import { useServer } from "@/contexts/ServerContext";
 import AlertBox from '@/components/AlertBox';
+import { useRouter} from 'expo-router';
 
 export default function DhcpPage() {
-
-    var address = Config.serverAddress;
-
+    const router = useRouter();
+    //const { address } = useServer();
+    const  address  = "http://127.0.0.1:5000"
     const [dhcpInformation, setDhcpInformation] = useState({
         dhcp_server_active: false,
         leases: null,
@@ -18,15 +19,7 @@ export default function DhcpPage() {
         foreign_dhcp_server: null,
     });
 
-    const [dhcpScanInformation, setDhcpScanInformation] = useState({
-        dhcp_server_active: false,
-        leases: null,
-        my_ip: null,
-        foreign_dhcp_server: null,
-    });
-
     const [foreignDhcpDetected, setForeignDhcpDetected] = useState(false);
-
     const [alert, setAlert] = useState({
         visible: false,
         title: "",
@@ -34,7 +27,7 @@ export default function DhcpPage() {
         message: "",
     });
 
-    const fetchDhcpInfo = async (setState: typeof setDhcpScanInformation) => {
+    const fetchDhcpInfo = async (setState: typeof setDhcpInformation) => {
         try {
             const response = await fetch(address + '/dhcp_info', { method: 'GET' });
             if (!response.ok) {
@@ -48,9 +41,10 @@ export default function DhcpPage() {
                 setForeignDhcpDetected(false);
             }
             setState(data);
+            
             return data; // Return the fetched data
         } catch (error) {
-            console.error('Error fetching DHCP information:', error);
+            router.push("/ErrorPage");
         }
     };
 
@@ -73,7 +67,7 @@ export default function DhcpPage() {
             }
             fetchDhcpInfo(setDhcpInformation);
         } catch (error) {
-            console.error('Error toggling DHCP server:', error);
+            router.push("/ErrorPage");
         }
     };
 
@@ -86,7 +80,7 @@ export default function DhcpPage() {
                 throw new Error('Failed to scan for DHCP');
             }
 
-            const data = await fetchDhcpInfo(setDhcpScanInformation); // Wait for fetchDhcpInfo to complete and get the data
+            const data = await fetchDhcpInfo(setDhcpInformation);
 
             if (!data.foreign_dhcp_server) {
                 setAlert({
@@ -108,13 +102,7 @@ export default function DhcpPage() {
                 });
             }
         } catch (error) {
-            console.error('Error scanning for DHCP:', error);
-            setAlert({
-                visible: true,
-                title: "Error",
-                titleColor: "red",
-                message: `Failed to scan for DHCP`,
-            });
+            router.push("/ErrorPage");
         }
     };
 
@@ -142,7 +130,7 @@ export default function DhcpPage() {
                 <AlertBox
                     visible={alert.visible}
                     title={alert.title}
-                    titleColor={alert.titleColor} 
+                    titleColor={alert.titleColor}
                     message={alert.message}
                     onClose={() => setAlert({ ...alert, visible: false })}
                 />
