@@ -1,23 +1,32 @@
+import HowToUse from '@/components/HomePageComponents/HowToUse';
+import Overview from '@/components/HomePageComponents/Overview';
 import React from 'react';
-import { Text, View, StyleSheet, Image} from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Image} from 'react-native';
 
 export default function HomePage() { // keep file named index. App breaks down after renaming
   return (
-    <View style={styles.view}>
-      <Image
-        source = {require('../../assets/images/AppLogo.png')}
-        style = {styles.image}
-      />
-      <Text style={styles.acronym}>SDDiP</Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.contentContainer}>
+        <Image
+          source = {require('../../assets/images/AppLogo.png')}
+          style = {styles.image}
+        />
+        <Text style={styles.acronym}>SDDiP</Text>
+        <Overview />
+        <HowToUse />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {
-      flex: 1,
-      backgroundColor: "#21233D",
-      alignItems: 'center'
+  scrollView: {
+    flexGrow: 1,
+    alignItems: 'center',
+    backgroundColor: "#21233D",
+  },
+  contentContainer: {
+    alignItems: 'center'
   },
   image: {
     marginTop: 50,
