@@ -1,15 +1,17 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image} from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Image} from 'react-native';
 
 export default function HomePage() { // keep file named index. App breaks down after renaming
   return (
-    <View style={styles.view}>
+    <ScrollView contentContainerStyle={styles.view}>
       <Image
         source = {require('../../assets/images/AppLogo.png')}
         style = {styles.image}
       />
       <Text style={styles.acronym}>SDDiP</Text>
-    </View>
+      <Text style={styles.header}>Overview</Text>
+      <Text style={styles.header}>How to use</Text>
+    </ScrollView>
   );
 }
 
@@ -28,6 +30,11 @@ const styles = StyleSheet.create({
   acronym: {
     color: 'white',
     fontSize: 40,
+    fontWeight: 'bold'
+  },
+  header: {
+    fontSize: 32,
+    color: 'white',
     fontWeight: 'bold'
   }
 });
