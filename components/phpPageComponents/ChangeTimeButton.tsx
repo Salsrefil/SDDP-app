@@ -3,13 +3,10 @@ import { useServer } from "@/contexts/ServerContext";
 import TimePickerModal from './TimePickerModal';
 import React, { useState } from 'react';
 import axios from "axios";
-import setErrorState from '@/app/ErrorPage';
-import { useRouter } from "expo-router";
 
 const ChangeTimeButton = () => {
     const {address} = useServer();
     const [modalVisible, setModalVisible] = useState(false);
-    var router = useRouter();
     
     const changeTime = async (date: Date) => {
         const url = `${address}/set_time`;
@@ -23,8 +20,6 @@ const ChangeTimeButton = () => {
                 }
             });
         } catch (error) {
-            setErrorState(true);
-            router.push("/ErrorPage")
         }
     };
 

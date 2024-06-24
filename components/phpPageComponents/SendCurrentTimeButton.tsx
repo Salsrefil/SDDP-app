@@ -17,7 +17,6 @@ const SendCurrentTimeButton = () => {
                 }
             });
         } catch(error) {
-
         }
     };
 

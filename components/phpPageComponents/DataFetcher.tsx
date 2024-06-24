@@ -1,8 +1,6 @@
 import React, {useEffect} from "react";
 import { useServer } from "@/contexts/ServerContext";
 import axios from 'axios';
-import { useRouter } from 'expo-router';
-import setErrorState from '@/app/ErrorPage';
 
 interface DataFetcherProps {
     setPtpInfo: (info: PtpInfo) => void;
@@ -20,7 +18,6 @@ interface PtpInfo {
 
 const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo}) => {
     const { address } = useServer();
-    var router = useRouter();
 
     const fetchPtpInfo = async () => {
         const url = address + '/ptp_info';
@@ -28,20 +25,18 @@ const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo}) => 
             let response = await axios.get(url);
             setPtpInfo(response.data);
         } catch (error) {
-            setErrorState(true);
-            router.push("/ErrorPage")
         }
     };
 
-    //useEffect(() => {
-    //    fetchPtpInfo();
-//
-    //    const intervalId = setInterval(() => {
-    //        fetchPtpInfo();
-    //    }, 1000) // currently will fetch data in 1 seconds long intervals.
-//
-    //    return () => clearInterval(intervalId);
-    //}, [])
+    useEffect(() => {
+        fetchPtpInfo();
+
+        const intervalId = setInterval(() => {
+            fetchPtpInfo();
+        }, 1000) // currently will fetch data in 1 seconds long intervals.
+
+        return () => clearInterval(intervalId);
+    }, [])
 
     return null;
 };

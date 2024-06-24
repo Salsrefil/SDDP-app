@@ -1,7 +1,6 @@
 import PtpButton from "./PtpButton";
 import { useServer } from "@/contexts/ServerContext";
 import axios from "axios";
-import { router } from 'expo-router';
 
 type ToggleRoleProps = {
     role: boolean
@@ -16,7 +15,6 @@ const ToggleRoleButton:React.FunctionComponent<ToggleRoleProps> = ({role}) =>{
         try {
             let response = axios.post(url);
         } catch (error) {
-            router.push("/ErrorPage")
         }
     };
 
