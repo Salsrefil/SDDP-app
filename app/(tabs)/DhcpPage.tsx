@@ -18,6 +18,13 @@ export default function DhcpPage() {
         foreign_dhcp_server: null,
     });
 
+    const [dhcpScanInformation, setDhcpScanInformation] = useState({
+        dhcp_server_active: false,
+        leases: null,
+        my_ip: null,
+        foreign_dhcp_server: null,
+    });
+
     const [foreignDhcpDetected, setForeignDhcpDetected] = useState(false);
 
     const [alert, setAlert] = useState({
@@ -27,7 +34,7 @@ export default function DhcpPage() {
         message: "",
     });
 
-    const fetchDhcpInfo = async () => {
+    const fetchDhcpInfo = async (setState: typeof setDhcpScanInformation) => {
         try {
             const response = await fetch(address + '/dhcp_info', { method: 'GET' });
             if (!response.ok) {
@@ -40,8 +47,8 @@ export default function DhcpPage() {
             } else {
                 setForeignDhcpDetected(false);
             }
-            //console.log(foreignDhcpDetected);
-            setDhcpInformation(data);
+            setState(data);
+            return data; // Return the fetched data
         } catch (error) {
             console.error('Error fetching DHCP information:', error);
         }
@@ -52,7 +59,7 @@ export default function DhcpPage() {
             setAlert({
                 visible: true,
                 title: "Foreign DHCP Server Detected",
-                titleColor: "red", // Foreign DHCP server detected
+                titleColor: "red",
                 message: "A foreign DHCP server was detected. Cannot switch to server mode now.",
             });
             return;
@@ -64,7 +71,7 @@ export default function DhcpPage() {
             if (!response.ok) {
                 throw new Error('Failed to toggle DHCP server');
             }
-            fetchDhcpInfo();
+            fetchDhcpInfo(setDhcpInformation);
         } catch (error) {
             console.error('Error toggling DHCP server:', error);
         }
@@ -78,33 +85,44 @@ export default function DhcpPage() {
             if (!response.ok) {
                 throw new Error('Failed to scan for DHCP');
             }
-            fetchDhcpInfo();
-            if (!dhcpInformation.foreign_dhcp_server) {
+
+            const data = await fetchDhcpInfo(setDhcpScanInformation); // Wait for fetchDhcpInfo to complete and get the data
+
+            if (!data.foreign_dhcp_server) {
                 setAlert({
                     visible: true,
                     title: "Scan alert",
-                    titleColor: "green", // No foreign DHCP server detected
+                    titleColor: "green",
                     message: "A foreign DHCP server was not detected.",
                 });
+                setDhcpInformation((prev) => ({
+                    ...prev,
+                    foreign_dhcp_server: data.foreign_dhcp_server,
+                }));
             } else {
                 setAlert({
                     visible: true,
                     title: "Scan alert",
-                    titleColor: "red", // Foreign DHCP server detected
+                    titleColor: "red",
                     message: "A foreign DHCP server was detected!",
                 });
             }
         } catch (error) {
             console.error('Error scanning for DHCP:', error);
+            setAlert({
+                visible: true,
+                title: "Error",
+                titleColor: "red",
+                message: `Failed to scan for DHCP`,
+            });
         }
     };
-    
 
     useEffect(() => {
-        fetchDhcpInfo();
+        fetchDhcpInfo(setDhcpInformation);
 
         const intervalId = setInterval(() => {
-            fetchDhcpInfo();
+            fetchDhcpInfo(setDhcpInformation);
         }, 1000);
 
         return () => clearInterval(intervalId);
