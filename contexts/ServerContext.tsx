@@ -8,7 +8,7 @@ interface ServerContextState {
 const ServerContext = createContext<ServerContextState | undefined>(undefined);
 
 export const ServerProvider: React.FC<{children: ReactNode}> = ({children}) => {
-    const [address, setServerAddress] = useState<string>('http://10.147.17.8');
+    const [address, setServerAddress] = useState<string>('http://192.168.0.1');
     return (
         <ServerContext.Provider value ={{address, setServerAddress}}>
             {children}

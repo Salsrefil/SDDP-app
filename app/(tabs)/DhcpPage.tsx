@@ -9,7 +9,7 @@ import { useRouter } from 'expo-router';
 
 export default function DhcpPage() {
     const router = useRouter();
-    const address = "http://10.147.17.8"
+    const address = "http://192.168.0.1"
 
     const [dhcpInformation, setDhcpInformation] = useState({
         dhcp_server_active: false,
