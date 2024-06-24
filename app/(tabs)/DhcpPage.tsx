@@ -4,15 +4,23 @@ import InformationDisplay from '@/components/phpPageComponents/InformationDispla
 import LeasesListDisplay from '@/components/dhcpPageComponents/LeasesListDisplay';
 import ServerClientSwitchButton from '@/components/dhcpPageComponents/ServerClientSwitchButton';
 import ScanForDhcpButton from '@/components/dhcpPageComponents/ScanForDhcpButton';
-import { useServer } from "@/contexts/ServerContext";
+import { ServerProvider, useServer } from "@/contexts/ServerContext";
 import AlertBox from '@/components/AlertBox';
 import { useRouter} from 'expo-router';
 
 export default function DhcpPage() {
     const router = useRouter();
-    //const { address } = useServer();
-    const  address  = "http://127.0.0.1:5000"
+    const { address } = useServer();
+    //const  address  = "http://127.0.0.1:5000"
+
     const [dhcpInformation, setDhcpInformation] = useState({
+        dhcp_server_active: false,
+        leases: null,
+        my_ip: null,
+        foreign_dhcp_server: null,
+    });
+
+    const [dhcpScanInformation, setDhcpScanInformation] = useState({
         dhcp_server_active: false,
         leases: null,
         my_ip: null,
@@ -41,8 +49,7 @@ export default function DhcpPage() {
                 setForeignDhcpDetected(false);
             }
             setState(data);
-            
-            return data; // Return the fetched data
+            return data;
         } catch (error) {
             router.push("/ErrorPage");
         }
@@ -80,7 +87,7 @@ export default function DhcpPage() {
                 throw new Error('Failed to scan for DHCP');
             }
 
-            const data = await fetchDhcpInfo(setDhcpInformation);
+            const data = await fetchDhcpInfo(setDhcpScanInformation);
 
             if (!data.foreign_dhcp_server) {
                 setAlert({
@@ -125,6 +132,7 @@ export default function DhcpPage() {
     }
 
     return (
+        <ServerProvider>
         <ScrollView contentContainerStyle={styles.view}>
             {alert.visible && (
                 <AlertBox
@@ -164,6 +172,8 @@ export default function DhcpPage() {
             />
             <ScanForDhcpButton onPress={handleScanForDhcp} />
         </ScrollView>
+        </ServerProvider>
+        
     );
 }
 

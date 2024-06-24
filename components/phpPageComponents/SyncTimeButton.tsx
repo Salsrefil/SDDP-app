@@ -2,7 +2,8 @@ import PtpButton from "./PtpButton";
 import { useServer } from "@/contexts/ServerContext";
 import axios from "axios";
 import React from "react";
-
+import { router } from 'expo-router';
+import setErrorState from '@/app/ErrorPage';
 
 type SyncTimeProps = {
     role: boolean,
@@ -19,8 +20,8 @@ const SyncTimeButton:React.FunctionComponent<SyncTimeProps> = ({role, foreignMas
         const url = `${address}/sync_time`;
         try {
             let response = axios.post(url);
-        } catch (error) {
-
+        } catch (error) {   
+            router.push("/ErrorPage")
         }
     };
 
