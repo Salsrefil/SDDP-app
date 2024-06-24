@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#2B2E46',
         color: 'white',
         fontSize: 16,
+        lineHeight: 24,
         borderWidth: 3,
         borderRadius: 30,
         borderColor: 'white',
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         paddingVertical: 10
     }
 })
