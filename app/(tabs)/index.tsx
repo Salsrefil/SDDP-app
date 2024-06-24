@@ -1,3 +1,4 @@
+import HowToUse from '@/components/HomePageComponents/HowToUse';
 import Overview from '@/components/HomePageComponents/Overview';
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, Image} from 'react-native';
@@ -12,11 +13,7 @@ export default function HomePage() { // keep file named index. App breaks down a
         />
         <Text style={styles.acronym}>SDDiP</Text>
         <Overview />
-        <Text style={styles.header}>How to use</Text>
-        <Text style={styles.textField}>
-          Application is split into three views: Home, PTP, DHCP, all accessible from navigation bar location at the bottom of screen.
-          Home View - The start point of application.
-        </Text>
+        <HowToUse />
       </View>
     </ScrollView>
   );
@@ -41,22 +38,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 40,
     fontWeight: 'bold'
-  },
-  header: {
-    fontSize: 32,
-    color: 'white',
-    fontWeight: 'bold'
-  },
-  textField: {
-    height: 'auto',
-    width: 360,
-    backgroundColor: '#2B2E46',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    color: 'white',
-    fontSize: 16,
-    borderWidth: 3,
-    borderRadius: 30,
-    borderColor: 'white'
   }
 });
