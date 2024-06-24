@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { useServer } from "@/contexts/ServerContext";
 import axios from 'axios';
+import { useRouter } from 'expo-router';
 
 interface DataFetcherProps {
     setPtpInfo: (info: PtpInfo) => void;
@@ -18,13 +19,14 @@ interface PtpInfo {
 
 const DataFetcher:React.FunctionComponent<DataFetcherProps> = ({setPtpInfo}) => {
     const { address } = useServer();
-
+    const router = useRouter();
     const fetchPtpInfo = async () => {
         const url = address + '/ptp_info';
         try {
             let response = await axios.get(url);
             setPtpInfo(response.data);
         } catch (error) {
+            router.push("/ErrorPage")
         }
     };
 
