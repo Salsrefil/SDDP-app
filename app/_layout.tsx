@@ -31,7 +31,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
-        <Stack.Screen name="ErrorPage" options={{ headerShown: false }}/>
+        <Stack.Screen name="ErrorPage" options={{headerShown: false, animation: 'none',}}/>
       </Stack>
     </ThemeProvider>
   );
