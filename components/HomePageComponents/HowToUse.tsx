@@ -42,6 +42,41 @@ const HomeSection = () => {
     );
 }
 
+const PtpSection = () => {
+    return (
+        <>
+            <Text style={styles.textHeader}>PTP</Text>
+            <Text style={styles.text}>
+                View for Ptp Server/Client. Displays information such as:
+            </Text>
+            <ListItem>Role - Current role in which our device works in network, Master or Slave.</ListItem>
+            <ListItem>Master MAC - MAC address of current master.</ListItem>
+            <ListItem>Master Description - Description of current master in network. Available only if current role is Slave.</ListItem>
+            <ListItem>Time - Currently used time.</ListItem>
+            <ListItem>Current Offset - Time offset. Available only if current role is Slave.</ListItem>
+            <ListItem>Clock Count - Number of clocks in network.</ListItem>
+            <Text style={styles.text}>
+                This view also has buttons form manipulating device behavior:
+            </Text>
+            <ListItem>
+                Change Time - Opens window for selecting time and sends it to device to be used as new shared time.
+                Only available when device works as a master
+            </ListItem>
+            <ListItem>
+                Set Current Time - Sends current time to device to be used as new shared time. Only available when
+                device works as a master.
+            </ListItem>
+            <ListItem>
+                Synchronize Time - Synchronizes time of local clock with master. Only available when device works
+                as a slave and foreign masters are available
+            </ListItem>
+            <ListItem>
+                Change to Slave/Master - Toggles role between slave and master.
+            </ListItem>
+        </>
+    );
+}
+
 const HowToUse = () => {
     return (
         <View style={styles.view}>
@@ -51,7 +86,7 @@ const HowToUse = () => {
             <View style={styles.content}>
                 <ViewsSection/>
                 <HomeSection />
-                <Text style={styles.textHeader}>PTP</Text>
+                <PtpSection />
                 <Text style={styles.textHeader}>DHCP</Text>
             </View>
         </View>
