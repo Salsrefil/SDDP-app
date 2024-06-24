@@ -47,7 +47,7 @@ const PtpSection = () => {
         <>
             <Text style={styles.textHeader}>PTP</Text>
             <Text style={styles.text}>
-                View for Ptp Server/Client. Displays information such as:
+                View for PTP Server/Client. Displays information such as:
             </Text>
             <ListItem>Role - Current role in which our device works in network, Master or Slave.</ListItem>
             <ListItem>Master MAC - MAC address of current master.</ListItem>
@@ -56,7 +56,7 @@ const PtpSection = () => {
             <ListItem>Current Offset - Time offset. Available only if current role is Slave.</ListItem>
             <ListItem>Clock Count - Number of clocks in network.</ListItem>
             <Text style={styles.text}>
-                This view also has buttons form manipulating device behavior:
+                This view also has buttons for manipulating device behavior:
             </Text>
             <ListItem>
                 Change Time - Opens window for selecting time and sends it to device to be used as new shared time.
@@ -77,6 +77,29 @@ const PtpSection = () => {
     );
 }
 
+const DhcpSection = () => {
+    return (
+        <>
+            <Text style={styles.textHeader}>DHCP</Text>
+            <Text style={styles.text}>
+                View for DHCP Server/Client. Displays information such as:
+            </Text>
+            <ListItem>Current Mode - Device role, it can work as Server or Client.</ListItem>
+            <ListItem>Foreign Server IP - IP address of foreign DHCP server.</ListItem>
+            <ListItem>
+                Static/Leased IP - Static IP address when device works as DHCP server,
+                 or leased IP address when device leases IP from foreign server
+            </ListItem>
+            <Text style={styles.text}>
+                This view also has buttons for manipulating device behavior:
+            </Text>
+            <ListItem>Switch to Server/Client Mode - Changes device role,
+                change to server role is allowed only if there is no active foreign DHCP server.</ListItem>
+            <ListItem>Scan for DHCP - Sans network in search for foreign DHCP server.</ListItem>
+        </>
+    );
+}
+
 const HowToUse = () => {
     return (
         <View style={styles.view}>
@@ -87,7 +110,7 @@ const HowToUse = () => {
                 <ViewsSection/>
                 <HomeSection />
                 <PtpSection />
-                <Text style={styles.textHeader}>DHCP</Text>
+                <DhcpSection />
             </View>
         </View>
     );
